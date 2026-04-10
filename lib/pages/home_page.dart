@@ -1,12 +1,53 @@
+import 'package:art_gallery/pages/detalhes_obra_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  // Chave para conseguir abrir o Drawer através do ícone no TextField
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFDFBF6),
+      key: _scaffoldKey, // Atribui a chave ao Scaffold
+      backgroundColor: Color(0xffFDFBF6),
+
+      // --- CONFIGURAÇÃO DO DRAWER (MENU LATERAL) ---
+      drawer: Drawer(
+        width: MediaQuery.of(context).size.width * 0.7, // Ocupa 70% da largura
+        child: Container(
+          color: Color(0xffC0A062), // Cor dourada do seu print
+          child: SafeArea(
+            child: Column(
+              children: [
+                // Botão de voltar (fechar)
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black87,
+                      size: 30,
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
+                SizedBox(height: 20),
+                // Itens do Menu
+                _buildMenuItem(Icons.search, "Explorar"),
+                _buildMenuItem(Icons.person_outline, "Artistas"),
+                _buildMenuItem(Icons.collections_outlined, "Exposições"),
+                _buildMenuItem(Icons.list_alt, "Minha Coleção"),
+                _buildMenuItem(Icons.star_border, "Favoritos"),
+                _buildMenuItem(Icons.settings_outlined, "Configurações"),
+                _buildMenuItem(Icons.dark_mode_outlined, "Mudar Tema"),
+              ],
+            ),
+          ),
+        ),
+      ),
+
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -14,14 +55,18 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
-                  color: const Color(0xffF1EEE9),
+                  color: Color(0xffF1EEE9),
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: const TextField(
+                child: TextField(
                   decoration: InputDecoration(
-                    icon: Icon(Icons.menu, color: Colors.black54),
+                    // Ícone que abre o Drawer
+                    icon: GestureDetector(
+                      onTap: () => _scaffoldKey.currentState?.openDrawer(),
+                      child: Icon(Icons.menu, color: Colors.black54),
+                    ),
                     suffixIcon: Icon(Icons.search, color: Colors.black54),
                     hintText: "Pesquisar Obras...",
                     border: InputBorder.none,
@@ -43,21 +88,37 @@ class HomePage extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Column(
-                      children: [
-                        Image.network(
-                          'https://png.pngtree.com/thumb_back/fh260/background/20241013/pngtree-beautiful-painting-hummingbirds-are-feeding-on-a-flower-beautifully-illustrated-hovering-image_16352321.jpg',
-                          fit: BoxFit.cover,
-                          height: 120,
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          "Beija Flor (1976)",
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                  ),
+  child: Column(
+    children: [
+      // 1. Envolvemos a imagem com GestureDetector para capturar o clique
+      GestureDetector(
+        onTap: () {
+          // 2. Usamos o Navigator para empilhar a nova página
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>  DetalhesObraPage(), // Navega para a classe DetailsPage
+            ),
+          );
+        },
+        // 3. Sua imagem original com o ClipRRect para as bordas arredondadas
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: Image.network(
+            'https://pixnio.com/free-images/2025/10/01/2025-10-01-07-30-17-1344x896.jpeg',
+            fit: BoxFit.cover,
+            height: 120, // Mantive a altura que combinamos antes
+          ),
+        ),
+      ),
+      const SizedBox(height: 8),
+      const Text(
+        "Beija Flor (1976)",
+        style: TextStyle(fontWeight: FontWeight.w500),
+      ),
+    ],
+  ),
+),
                   const SizedBox(width: 16),
                   Expanded(
                     child: Column(
@@ -67,8 +128,8 @@ class HomePage extends StatelessWidget {
                           fit: BoxFit.cover,
                           height: 120,
                         ),
-                        const SizedBox(height: 8),
-                        const Text(
+                        SizedBox(height: 8),
+                        Text(
                           "O Sol (2008)",
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
@@ -77,9 +138,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: 40),
 
-              const Text(
+              Text(
                 "Exposições Atuais",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -88,7 +149,7 @@ class HomePage extends StatelessWidget {
                   fontFamily: "Georgia",
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               Container(
                 width: double.infinity,
                 height: 150,
@@ -100,10 +161,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: 40),
 
-              // --- SEÇÃO: ARTISTAS PARA DESCOBRIR ---
-              const Text(
+              Text(
                 "Artistas para Descobrir",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -112,7 +172,7 @@ class HomePage extends StatelessWidget {
                   fontFamily: "Georgia",
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               GridView.count(
                 crossAxisCount: 3,
                 shrinkWrap: true,
@@ -141,7 +201,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
             ],
           ),
         ),
@@ -149,7 +209,21 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Função auxiliar para criar cada quadro de artista individualmente
+  Widget _buildMenuItem(IconData icon, String title) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.black87),
+      title: Text(
+        title,
+        style: TextStyle(
+          color: Colors.black87,
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      onTap: () {},
+    );
+  }
+
   Widget _buildArtistItem(String imagePath) {
     return Container(
       decoration: BoxDecoration(
