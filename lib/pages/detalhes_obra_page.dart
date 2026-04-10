@@ -20,26 +20,34 @@ class _DetalhesObraPageState extends State<DetalhesObraPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Adicionar à Coleção", style: TextStyle(fontFamily: "Georgia")),
+          title: Text(
+            "Adicionar à Coleção",
+            style: TextStyle(fontFamily: "Georgia"),
+          ),
           content: SizedBox(
             width: double.maxFinite,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ...minhasColecoes.map((colecao) => ListTile(
-                      leading: Icon(Icons.folder_outlined),
-                      title: Text(colecao),
-                      onTap: () {
-                        Navigator.pop(context);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Adicionado a: $colecao")),
-                        );
-                      },
-                    )),
+                ...minhasColecoes.map(
+                  (colecao) => ListTile(
+                    leading: Icon(Icons.folder_outlined),
+                    title: Text(colecao),
+                    onTap: () {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Adicionado a: $colecao")),
+                      );
+                    },
+                  ),
+                ),
                 Divider(),
                 ListTile(
                   leading: Icon(Icons.add, color: Colors.blue),
-                  title: Text("Criar Nova Coleção", style: TextStyle(color: Colors.blue)),
+                  title: Text(
+                    "Criar Nova Coleção",
+                    style: TextStyle(color: Colors.blue),
+                  ),
                   onTap: () {
                     // Aqui você implementaria a lógica de criar nova
                     Navigator.pop(context);
@@ -67,7 +75,11 @@ class _DetalhesObraPageState extends State<DetalhesObraPage> {
         ),
         title: Text(
           "Detalhes da Obra",
-          style: TextStyle(color: Colors.black, fontFamily: "Georgia", fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: "Georgia",
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -78,11 +90,15 @@ class _DetalhesObraPageState extends State<DetalhesObraPage> {
             Center(
               child: Text(
                 "Beija Flor",
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, fontFamily: "Georgia"),
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Georgia",
+                ),
               ),
             ),
             SizedBox(height: 20),
-            
+
             // Imagem Principal
             Stack(
               children: [
@@ -100,42 +116,60 @@ class _DetalhesObraPageState extends State<DetalhesObraPage> {
                 ),
               ],
             ),
-            
+
             SizedBox(height: 20),
-            Text("Arnaldo de Matos • 1976", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+            Text(
+              "Arnaldo de Matos • 1976",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
             SizedBox(height: 15),
             Text(
               "A obra une a precisão da ilustração científica à estética vibrante dos anos 70.",
               style: TextStyle(fontSize: 15, height: 1.5),
             ),
-            
+
             SizedBox(height: 30),
-            
+
             // BOTÃO: MUSEU
-            _buildActionButton(Icons.location_on, "Museu de Arte Contemporânea", const Color(0xffA6A6A6), () {}),
+            _buildActionButton(
+              Icons.location_on,
+              "Museu de Arte Contemporânea",
+              const Color(0xffA6A6A6),
+              () {},
+            ),
             SizedBox(height: 12),
 
             // FUNCIONALIDADE: SALVAR NOS FAVORITOS (Toggle Estado)
             _buildActionButton(
-              isFavorite ? Icons.star : Icons.star_border, 
-              isFavorite ? "Favoritado!" : "Salvar como Favorito", 
-              const Color(0xffB9955B), 
+              isFavorite ? Icons.star : Icons.star_border,
+              isFavorite ? "Favoritado!" : "Salvar como Favorito",
+              const Color(0xffB9955B),
               () {
                 setState(() {
                   isFavorite = !isFavorite;
                 });
-              }
+              },
             ),
             SizedBox(height: 12),
 
-            _buildActionButton(Icons.bookmark_border, "Adicionar à Coleção", const Color(0xffC08491), _abrirModalColecao),
+            _buildActionButton(
+              Icons.bookmark_border,
+              "Adicionar à Coleção",
+              const Color(0xffC08491),
+              _abrirModalColecao,
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildActionButton(IconData icon, String text, Color color, VoidCallback onTap) {
+  Widget _buildActionButton(
+    IconData icon,
+    String text,
+    Color color,
+    VoidCallback onTap,
+  ) {
     return InkWell(
       onTap: onTap,
       child: Container(

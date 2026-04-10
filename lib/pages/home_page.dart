@@ -1,27 +1,25 @@
+import 'package:art_gallery/pages/artistas_page.dart';
 import 'package:art_gallery/pages/detalhes_obra_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  // Chave para conseguir abrir o Drawer através do ícone no TextField
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey, // Atribui a chave ao Scaffold
+      key: _scaffoldKey,
       backgroundColor: Color(0xffFDFBF6),
 
-      // --- CONFIGURAÇÃO DO DRAWER (MENU LATERAL) ---
       drawer: Drawer(
-        width: MediaQuery.of(context).size.width * 0.7, // Ocupa 70% da largura
+        width: MediaQuery.of(context).size.width * 0.7,
         child: Container(
-          color: Color(0xffC0A062), // Cor dourada do seu print
+          color: Color(0xffC0A062),
           child: SafeArea(
             child: Column(
               children: [
-                // Botão de voltar (fechar)
                 Align(
                   alignment: Alignment.topRight,
                   child: IconButton(
@@ -34,14 +32,22 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                // Itens do Menu
-                _buildMenuItem(Icons.search, "Explorar"),
-                _buildMenuItem(Icons.person_outline, "Artistas"),
-                _buildMenuItem(Icons.collections_outlined, "Exposições"),
-                _buildMenuItem(Icons.list_alt, "Minha Coleção"),
-                _buildMenuItem(Icons.star_border, "Favoritos"),
-                _buildMenuItem(Icons.settings_outlined, "Configurações"),
-                _buildMenuItem(Icons.dark_mode_outlined, "Mudar Tema"),
+                // Chamamos a função passando o context
+                _buildMenuItem(Icons.search, "Explorar", context),
+                _buildMenuItem(Icons.person_outline, "Artistas", context),
+                _buildMenuItem(
+                  Icons.collections_outlined,
+                  "Exposições",
+                  context,
+                ),
+                _buildMenuItem(Icons.list_alt, "Minha Coleção", context),
+                _buildMenuItem(Icons.star_border, "Favoritos", context),
+                _buildMenuItem(
+                  Icons.settings_outlined,
+                  "Configurações",
+                  context,
+                ),
+                _buildMenuItem(Icons.dark_mode_outlined, "Mudar Tema", context),
               ],
             ),
           ),
@@ -50,10 +56,11 @@ class HomePage extends StatelessWidget {
 
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Barra de Busca
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
@@ -62,7 +69,6 @@ class HomePage extends StatelessWidget {
                 ),
                 child: TextField(
                   decoration: InputDecoration(
-                    // Ícone que abre o Drawer
                     icon: GestureDetector(
                       onTap: () => _scaffoldKey.currentState?.openDrawer(),
                       child: Icon(Icons.menu, color: Colors.black54),
@@ -73,9 +79,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30),
 
-              const Text(
+              Text(
                 "Obras em destaque",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -84,49 +90,51 @@ class HomePage extends StatelessWidget {
                   fontFamily: "Georgia",
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
+
               Row(
                 children: [
                   Expanded(
-  child: Column(
-    children: [
-      // 1. Envolvemos a imagem com GestureDetector para capturar o clique
-      GestureDetector(
-        onTap: () {
-          // 2. Usamos o Navigator para empilhar a nova página
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>  DetalhesObraPage(), // Navega para a classe DetailsPage
-            ),
-          );
-        },
-        // 3. Sua imagem original com o ClipRRect para as bordas arredondadas
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: Image.network(
-            'https://pixnio.com/free-images/2025/10/01/2025-10-01-07-30-17-1344x896.jpeg',
-            fit: BoxFit.cover,
-            height: 120, // Mantive a altura que combinamos antes
-          ),
-        ),
-      ),
-      const SizedBox(height: 8),
-      const Text(
-        "Beija Flor (1976)",
-        style: TextStyle(fontWeight: FontWeight.w500),
-      ),
-    ],
-  ),
-),
-                  const SizedBox(width: 16),
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            // Navegação para Detalhes
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetalhesObraPage(),
+                              ),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: Image.network(
+                              'https://pixnio.com/free-images/2025/10/01/2025-10-01-07-30-17-1344x896.jpeg',
+                              fit: BoxFit.cover,
+                              height: 120,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          "Beija Flor (1976)",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
                   Expanded(
                     child: Column(
                       children: [
-                        Image.network(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQilreu-_6jKyjR3LKQrE4XkWVdxC-0qV-Y7w&s',
-                          fit: BoxFit.cover,
-                          height: 120,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: Image.network(
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQilreu-_6jKyjR3LKQrE4XkWVdxC-0qV-Y7w&s',
+                            fit: BoxFit.cover,
+                            height: 120,
+                          ),
                         ),
                         SizedBox(height: 8),
                         Text(
@@ -142,7 +150,6 @@ class HomePage extends StatelessWidget {
 
               Text(
                 "Exposições Atuais",
-                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -155,8 +162,10 @@ class HomePage extends StatelessWidget {
                 height: 150,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/exhibition_banner_1.jpg'),
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/exhibition_banner_1.jpg',
+                    ), // Exemplo Network
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -165,7 +174,6 @@ class HomePage extends StatelessWidget {
 
               Text(
                 "Artistas para Descobrir",
-                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -176,7 +184,7 @@ class HomePage extends StatelessWidget {
               GridView.count(
                 crossAxisCount: 3,
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 mainAxisSpacing: 10,
                 crossAxisSpacing: 10,
                 childAspectRatio: 0.8,
@@ -197,11 +205,10 @@ class HomePage extends StatelessWidget {
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNrAnlNK3bpil0Ry-rkwKLGBzSUvpXeA9XHg&s',
                   ),
                   _buildArtistItem(
-                    'https://static.todamateria.com.br/upload/do/na/donatello-cke.jpg',
+                    'https://static.mundoeducacao.uol.com.br/mundoeducacao/2019/12/1-frida-kahlo.jpg',
                   ),
                 ],
               ),
-              SizedBox(height: 20),
             ],
           ),
         ),
@@ -209,7 +216,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String title) {
+  Widget _buildMenuItem(IconData icon, String title, BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: Colors.black87),
       title: Text(
@@ -220,7 +227,15 @@ class HomePage extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.pop(context);
+        if (title == "Artistas") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ArtistsPage()),
+          );
+        }
+      },
     );
   }
 
