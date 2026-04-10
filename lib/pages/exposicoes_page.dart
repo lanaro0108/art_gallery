@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ArtistsPage extends StatefulWidget {
-  const ArtistsPage({super.key});
+class ExposicoesPage extends StatefulWidget {
+  const ExposicoesPage({super.key});
 
   @override
-  State<ArtistsPage> createState() => _ArtistsPageState();
+  State<ExposicoesPage> createState() => _ExposicoesPageState();
 }
 
-class _ArtistsPageState extends State<ArtistsPage> {
+class _ExposicoesPageState extends State<ExposicoesPage> {
   // Simulação de artistas salvos (IDs ou nomes)
   final Set<String> _artistasSalvos = {};
 
@@ -33,7 +33,7 @@ class _ArtistsPageState extends State<ArtistsPage> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          "Lista de Artistas",
+          "Próximas Exposições",
           style: TextStyle(
             color: Colors.black,
             fontFamily: "Georgia",
@@ -48,7 +48,7 @@ class _ArtistsPageState extends State<ArtistsPage> {
           children: [
             Center(
               child: Text(
-                "Artistas Famosos",
+                "Exposições de arte",
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -62,10 +62,6 @@ class _ArtistsPageState extends State<ArtistsPage> {
               children: [
                 Text("Filtrar por...", style: TextStyle(fontSize: 16)),
                 Icon(Icons.filter_list),
-                Spacer(),
-                Text("Ver Salvos", style: TextStyle(fontSize: 16)),
-                SizedBox(width: 8),
-                Icon(Icons.bookmark),
               ],
             ),
             SizedBox(height: 30),
@@ -78,24 +74,34 @@ class _ArtistsPageState extends State<ArtistsPage> {
               childAspectRatio: 0.7,
               children: [
                 _buildArtistCard(
-                  "Pablo Picasso",
-                  "Cubismo / Surrealismo",
-                  "https://arteref.com/wp-content/uploads/2017/05/Pablo-Picasso-capa.jpg",
+                  "Transfiguração",
+                  "Le petit Gallery",
+                  "https://www.shutterstock.com/shutterstock/photos/1910335603/display_1500/stock-vector-poster-for-art-exhibition-art-fair-and-others-1910335603.jpg",
                 ),
                 _buildArtistCard(
-                  "Claude Monet",
-                  "Pós-Impressionismo",
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD4KT_Fmf3q8IE8D5ljTFWd-2u0PQzJKbVqw&s",
+                  "Art Exhibition",
+                  "Grand Hall",
+                  "https://www.creativehatti.com/wp-content/uploads/edd/2022/07/Flyer-template-of-the-art-gallery-art-exhibition-11-large.jpg",
                 ),
                 _buildArtistCard(
-                  "Leonardo da Vinci",
-                  "Renascimento",
-                  "https://www.cartacapital.com.br/wp-content/uploads/2019/02/Kombo-Leonardo-Da-Vinci-und-Leonardo-di-Caprio-1024x1001.jpg",
+                  "The Renaissance",
+                  "High Arts",
+                  "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/art-exhibition-poster-template-33e5335782c24c54140ead46588c887e_screen.jpg?ts=1636969465",
                 ),
                 _buildArtistCard(
-                  "Paul Cézanne",
-                  "Pós-Impressionismo",
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDfR4gALwiOIPGNWm2wyeHyK8yffOWVvL6jQ&s",
+                  "Sttary Night",
+                  "Art House",
+                  "https://design-assets.adobeprojectm.com/content/download/express/public/urn:aaid:sc:VA6C2:2d869a84-f2e5-5ab0-864e-ef15b88a4114/component?assetType=TEMPLATE&etag=372faa12ab1a46c19522e0bc9066bd8e&revision=ec21daf6-bd75-440b-b617-67bbb7d8870c&component_id=35b78c65-7b5d-4ee7-b61f-685340cb7a06",
+                ),
+                _buildArtistCard(
+                  "Color & Structure",
+                  "Art Expert Gallery",
+                  "https://design-assets.adobeprojectm.com/content/download/express/public/urn:aaid:sc:VA6C2:b420df6c-222b-550d-af43-fee86f7a759e/component?assetType=TEMPLATE&etag=0b7119b3852547e485233f164fad858d&revision=e6e168fc-cea0-4b60-b8ad-ac73edd160cd&component_id=90d0cd1e-670c-49db-a3df-e970aa955ea6",
+                ),
+                _buildArtistCard(
+                  "Realism",
+                  "Pantheon Gallery",
+                  "https://design-assets.adobeprojectm.com/content/download/express/public/urn:aaid:sc:VA6C2:82887a3c-a596-49c7-ba8e-74a92c724b57/component?assetType=TEMPLATE&etag=080531ddf99122802613ff4e00fc7cb3&revision=0&component_id=f56361ee-3b02-41eb-a380-f3793ad19ecc",
                 ),
               ],
             ),

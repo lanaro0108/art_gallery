@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DetalhesObraPage extends StatefulWidget {
-  const DetalhesObraPage({super.key});
+  DetalhesObraPage({super.key});
 
   @override
   State<DetalhesObraPage> createState() => _DetalhesObraPageState();

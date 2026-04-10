@@ -1,5 +1,7 @@
 import 'package:art_gallery/pages/artistas_page.dart';
+import 'package:art_gallery/pages/detalhes_artista_page.dart';
 import 'package:art_gallery/pages/detalhes_obra_page.dart';
+import 'package:art_gallery/pages/exposicoes_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -189,8 +191,33 @@ class HomePage extends StatelessWidget {
                 crossAxisSpacing: 10,
                 childAspectRatio: 0.8,
                 children: [
-                  _buildArtistItem(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSPgfaqyOkDpPrSY_V7-6tneoOva_mj1WEpg&s',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetalhesArtistaPage(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: Colors.grey[300],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: Image.network(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSPgfaqyOkDpPrSY_V7-6tneoOva_mj1WEpg&s',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   _buildArtistItem(
                     'https://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg',
@@ -233,6 +260,11 @@ class HomePage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => ArtistsPage()),
+          );
+        } else if (title == "Exposições") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ExposicoesPage()),
           );
         }
       },
